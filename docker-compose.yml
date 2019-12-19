@@ -1,0 +1,22 @@
+version: "3.7"
+services:
+  ups-compute-and-network:
+    build:
+      context: "apcupsd-image"
+    image: crossan007/apcupsd
+    devices:
+      - "/dev/usb/ups-compute-and-network:/dev/ups"
+  ups-screen:
+    build:
+      context: "apcupsd-image"
+    image: crossan007/apcupsd
+    devices:
+     -  "/dev/usb/ups-screen:/dev/ups"
+  http-ups-status:
+    build:
+      context: "multimon-image"
+    image: crossan007/apcupsd-multimon
+    ports:
+      - "82:80"
+    environment:
+      - "UPS_TO_MONITOR=ups-screen,ups-compute-and-network"
