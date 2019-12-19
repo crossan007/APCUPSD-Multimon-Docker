@@ -1,5 +1,7 @@
 FROM alpine:3.7
-RUN apk add --no-cache apcupsd
+RUN apk update && apk add --no-cache bash apcupsd
+# RUN apk add --no-cache apcupsd
 COPY ./apcupsd.conf /etc/apcupsd/apcupsd.conf
+COPY ./entrypoint.sh /usr/local/bin/
 #CMD tail -f /dev/null
-ENTRYPOINT ["/sbin/apcupsd","-b"]
+CMD ["/usr/local/bin/entrypoint.sh"]

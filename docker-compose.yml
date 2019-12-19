@@ -4,14 +4,22 @@ services:
     build:
       context: "apcupsd-image"
     image: crossan007/apcupsd
+    ports:
+      - "3551:3551"
     devices:
       - "/dev/usb/ups-compute-and-network:/dev/ups"
+    environment:
+      - UPSNAME=ComputeAndNetwork
   ups-screen:
     build:
       context: "apcupsd-image"
     image: crossan007/apcupsd
+    ports:
+     - "3552:3551"
     devices:
      -  "/dev/usb/ups-screen:/dev/ups"
+    environment:
+      - UPSNAME=Screens
   http-ups-status:
     build:
       context: "multimon-image"
